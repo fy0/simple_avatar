@@ -5,6 +5,7 @@ CSS:
 .sa-avatar {
     color: white;
     text-align: center;
+    display: inline-block;
     -ms-user-select:none;
     -moz-user-select:none;
     -webkit-user-select: none;
@@ -22,13 +23,17 @@ def get_background_color(txt):
     if py_ver == 3:
         return '#%s' % hashlib.md5(bytes(txt, 'utf-8')).hexdigest()[:6]
     else:
-        return '#%s' % hashlib.md5(txt).hexdigest()[:6] # fix for py2
+        # fix for py2
+        if type(txt) == unicode:
+            return '#%s' % hashlib.md5(txt.encode('utf-8')).hexdigest()[:6]
+        else:
+            return '#%s' % hashlib.md5(txt).hexdigest()[:6]
 
 
 def avatar_generate(txt, color, size, css_class='sa-avatar'):
     params = {
-        'min-width': '%spx' % size,
-        'min-height': '%spx' % size,
+        'width': '%spx' % size,
+        'height': '%spx' % size,
         'line-height': '%spx' % size,
         'font-size': '%spx' % (size-10),
         'background-color': color,
@@ -51,5 +56,5 @@ def get_avatar_html(txt, size, css_class='sa-avatar'):
 
     
 if __name__ == '__main__':
-    print(get_avatar_html('Test', 16))
-    print(get_avatar_html('测试', 32))
+    print(get_avatar_html('Test', 32))
+    print(get_avatar_html('测试', 64))

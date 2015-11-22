@@ -1,5 +1,7 @@
 # Simple Avatar
 
+![Simple Avatar](http://rpgame.net/pics/simple-avatar.png?v=2)
+
 Use first character to generate avatar.
 
 Tested on py2.7/py3.4
@@ -16,4 +18,10 @@ import simple_avatar
 >>>> print(simple_avatar.get_avatar_html('测试', 32))
 <div class="sa-avatar" style="font-size:22px;background-color:#db06c7;min-height:32px;min-width:32px;line-height:32px">测</div>
 
+```
+
+demo:
+
+```bash
+python demo_tornado.py
 ```
