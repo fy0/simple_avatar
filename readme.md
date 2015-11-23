@@ -1,6 +1,6 @@
 # Simple Avatar
 
-![Simple Avatar](http://rpgame.net/pics/simple-avatar.png?v=2)
+![Simple Avatar](http://rpgame.net/pics/simple-avatar.png)
 
 Use first character to generate avatar.
 

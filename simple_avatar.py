@@ -30,7 +30,16 @@ def get_background_color(txt):
             return '#%s' % hashlib.md5(txt).hexdigest()[:6]
 
 
-def avatar_generate(txt, color, size, css_class='sa-avatar'):
+def avatar_generate(txt, color, size, css_class='sa-avatar', ecls=None):
+    """
+    :param txt: text for generate
+    :param color: css color, like #abc
+    :param size: integer, box size
+    :param css_class: str, default css_class
+    :param ecls: list, extra css classes
+    :return: html of avatar
+    """
+
     params = {
         'width': '%spx' % size,
         'height': '%spx' % size,
@@ -38,7 +47,7 @@ def avatar_generate(txt, color, size, css_class='sa-avatar'):
         'font-size': '%spx' % (size-10),
         'background-color': color,
     }
-    
+
     if py_ver == 3:
         char = txt[0]
     else:
@@ -47,14 +56,20 @@ def avatar_generate(txt, color, size, css_class='sa-avatar'):
         else:
             char = txt[0]
 
+    if ecls:
+        css_classes = '%s %s' % (css_class, ' '.join(ecls))
+    else:
+        css_classes = css_class
+
     return u"""<div class="%s" style="%s">%s</div>"""\
-           % (css_class, ';'.join('%s:%s' % x for x in params.items()), char.upper())
+           % (css_classes, ';'.join('%s:%s' % x for x in params.items()), char.upper())
 
 
-def get_avatar_html(txt, size, css_class='sa-avatar'):
-    return avatar_generate(txt, get_background_color(txt), size, css_class)
+def get_avatar_html(txt, size, css_class='sa-avatar', ecls=None, color_func=get_background_color):
+    return avatar_generate(txt, color_func(txt), size, css_class, ecls)
 
-    
+
 if __name__ == '__main__':
     print(get_avatar_html('Test', 32))
     print(get_avatar_html('测试', 64))
+    print(get_avatar_html('测试', 64, ecls=['test']))
